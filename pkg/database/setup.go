@@ -2,6 +2,7 @@ package database
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/sgitwhyd/jagong/app/models"
 	"github.com/sgitwhyd/jagong/pkg/env"
@@ -22,5 +23,10 @@ func SetupDatabase() {
 	if err != nil {
 		panic(err)
 	}
-	DB.AutoMigrate(&models.User{})
+	err = DB.AutoMigrate(&models.User{}, &models.UserSession{})
+	if err != nil {
+		log.Printf("AutoMigrate err:%v\n", err)
+	}
+
+	log.Print("Database setup success")
 }
