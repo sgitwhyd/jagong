@@ -48,6 +48,6 @@ func (l UserLoginRequest) Validate() error {
 type UserLoginResponse struct {
 	Username     string `json:"username"`
 	FullName     string `json:"full_name"`
-	Token        string `json:"jwt_token"`
+	Token        string `json:"token"`
 	RefreshToken string `json:"refresh_token"`
 }
