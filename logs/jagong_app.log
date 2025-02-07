@@ -1,0 +1,7 @@
+2025/01/28 17:52:14 Database setup success
+2025/01/28 17:52:14 MongoDB setup success
+2025/01/28 17:54:58 Database setup success
+2025/01/28 17:54:58 MongoDB setup success
+2025/01/28 17:55:05 middleware: token is empty
+2025/01/28 18:00:22 parse body err:Unprocessable Entity
+2025/01/28 18:00:47 validate err:Key: 'UserLoginRequest.Password' Error:Field validation for 'Password' failed on the 'required' tag

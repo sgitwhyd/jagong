@@ -3,13 +3,14 @@ package ws
 import (
 	"context"
 	"fmt"
+	"log"
+	"time"
+
 	"github.com/gofiber/contrib/websocket"
 	"github.com/gofiber/fiber/v2"
 	"github.com/sgitwhyd/jagong/app/models"
 	"github.com/sgitwhyd/jagong/app/repository"
 	"github.com/sgitwhyd/jagong/pkg/env"
-	"log"
-	"time"
 )
 
 func ServeWsMessaging(app *fiber.App) {
@@ -26,14 +27,14 @@ func ServeWsMessaging(app *fiber.App) {
 		for {
 			var msg models.MessagePayload
 			if err := conn.ReadJSON(&msg); err != nil {
-				fmt.Printf("msg payload %v", msg)
-				fmt.Printf("error payload %v", err.Error())
+				log.Printf("msg payload %v", msg)
+				log.Printf("error payload %v", err.Error())
 				break
 			}
 			msg.Date = time.Now()
 			err := repository.InsertMessage(context.Background(), msg)
 			if err != nil {
-				fmt.Printf("error insert message %v", err.Error())
+				log.Printf("error insert message %v", err.Error())
 			}
 			broadcast <- msg
 		}
@@ -45,7 +46,7 @@ func ServeWsMessaging(app *fiber.App) {
 			for client := range clients {
 				err := client.WriteJSON(msg)
 				if err != nil {
-					fmt.Printf("error sending message %v", err.Error())
+					log.Printf("error sending message %v", err.Error())
 					client.Close()
 					delete(clients, client)
 				}

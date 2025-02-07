@@ -2,17 +2,19 @@ package router
 
 import (
 	"errors"
+	"log"
+	"time"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/sgitwhyd/jagong/app/repository"
 	"github.com/sgitwhyd/jagong/pkg/jwt_token"
 	"github.com/sgitwhyd/jagong/pkg/response"
-	"log"
-	"time"
 )
 
 func AuthMiddleware(ctx *fiber.Ctx) error {
 	accessToken := ctx.Get("Authorization")
 	if accessToken == "" {
+		log.Printf("middleware: token is empty")
 		err := errors.New("token is empty").Error()
 		return response.SendErrorResponse(ctx, fiber.StatusUnauthorized, &err)
 	}
