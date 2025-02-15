@@ -3,10 +3,12 @@ package jwt_token
 import (
 	"context"
 	"fmt"
-	"github.com/golang-jwt/jwt/v5"
-	"github.com/sgitwhyd/jagong/pkg/env"
 	"log"
 	"time"
+
+	"github.com/golang-jwt/jwt/v5"
+	"github.com/sgitwhyd/jagong/pkg/env"
+	"go.elastic.co/apm/v2"
 )
 
 type ClaimToken struct {
@@ -22,7 +24,10 @@ var MapTypeToken = map[string]time.Duration{
 
 var JWT_SECRET = []byte(env.GetEnv("JWT_SECRET", ""))
 
-func GenerateToken(username string, fullname string, tokenType string) (string, error) {
+func GenerateToken(ctx context.Context, username, fullname, tokenType string) (string, error) {
+	span, _ := apm.StartSpan(ctx, "GenerateToken", "jwt_token")
+	defer span.End()
+	
 	claimToken := ClaimToken{
 		Username: username,
 		FullName: fullname,

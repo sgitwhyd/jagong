@@ -5,3 +5,91 @@
 2025/01/28 17:55:05 middleware: token is empty
 2025/01/28 18:00:22 parse body err:Unprocessable Entity
 2025/01/28 18:00:47 validate err:Key: 'UserLoginRequest.Password' Error:Field validation for 'Password' failed on the 'required' tag
+2025/02/07 22:03:43 Database setup success
+2025/02/07 22:03:43 MongoDB setup success
+2025/02/07 22:15:15 msg payload {  0001-01-01 00:00:00 +0000 UTC}
+2025/02/07 22:15:15 error payload websocket: close 1001 (going away)
+2025/02/07 22:15:32 get history message error server selection error: server selection timeout, current topology: { Type: ReplicaSetNoPrimary, Servers: [{ Addr: jagongapp-shard-00-00.ddkqp.mongodb.net:27017, Type: Unknown, Last error: remote error: tls: internal error }, { Addr: jagongapp-shard-00-01.ddkqp.mongodb.net:27017, Type: Unknown, Last error: remote error: tls: internal error }, { Addr: jagongapp-shard-00-02.ddkqp.mongodb.net:27017, Type: Unknown, Last error: remote error: tls: internal error }, ] }
+2025/02/07 22:15:45 get history message error server selection error: server selection timeout, current topology: { Type: ReplicaSetNoPrimary, Servers: [{ Addr: jagongapp-shard-00-00.ddkqp.mongodb.net:27017, Type: Unknown, Last error: remote error: tls: internal error }, { Addr: jagongapp-shard-00-01.ddkqp.mongodb.net:27017, Type: Unknown, Last error: remote error: tls: internal error }, { Addr: jagongapp-shard-00-02.ddkqp.mongodb.net:27017, Type: Unknown, Last error: remote error: tls: internal error }, ] }
+2025/02/07 22:17:55 error insert message server selection error: server selection timeout, current topology: { Type: ReplicaSetNoPrimary, Servers: [{ Addr: jagongapp-shard-00-00.ddkqp.mongodb.net:27017, Type: Unknown, Last error: remote error: tls: internal error }, { Addr: jagongapp-shard-00-01.ddkqp.mongodb.net:27017, Type: Unknown, Last error: remote error: tls: internal error }, { Addr: jagongapp-shard-00-02.ddkqp.mongodb.net:27017, Type: Unknown, Last error: remote error: tls: internal error }, ] }
+2025/02/07 22:19:06 msg payload {  0001-01-01 00:00:00 +0000 UTC}
+2025/02/07 22:19:06 error payload websocket: close 1001 (going away)
+2025/02/07 22:19:15 msg payload {  0001-01-01 00:00:00 +0000 UTC}
+2025/02/07 22:19:15 error payload websocket: close 1001 (going away)
+2025/02/07 22:19:17 msg payload {  0001-01-01 00:00:00 +0000 UTC}
+2025/02/07 22:19:17 error payload websocket: close 1001 (going away)
+2025/02/07 22:19:17 msg payload {  0001-01-01 00:00:00 +0000 UTC}
+2025/02/07 22:19:17 error payload websocket: close 1001 (going away)
+2025/02/07 22:19:32 msg payload {  0001-01-01 00:00:00 +0000 UTC}
+2025/02/07 22:19:32 error payload websocket: close 1001 (going away)
+2025/02/07 22:21:04 msg payload {  0001-01-01 00:00:00 +0000 UTC}
+2025/02/07 22:21:04 error payload websocket: close 1001 (going away)
+2025/02/15 11:49:29 Database setup success
+2025/02/15 11:49:29 MongoDB setup success
+2025/02/15 11:50:22 validate err:Key: 'UserLoginRequest.Password' Error:Field validation for 'Password' failed on the 'required' tag
+2025/02/15 11:51:05 compare hash err:crypto/bcrypt: hashedPassword is not the hash of the given password
+2025/02/15 11:53:20 create user error: Error 1062 (23000): Duplicate entry 'developer' for key 'users.uni_users_username'
+2025/02/15 12:03:02 Database setup success
+2025/02/15 12:03:03 MongoDB setup success
+2025/02/15 12:03:10 create user error: Error 1062 (23000): Duplicate entry 'developer' for key 'users.uni_users_username'
+2025/02/15 12:03:13 compare hash err:crypto/bcrypt: hashedPassword is not the hash of the given password
+2025/02/15 12:04:05 Database setup success
+2025/02/15 12:04:06 MongoDB setup success
+2025/02/15 12:04:22 create user error: Error 1062 (23000): Duplicate entry 'developer' for key 'users.uni_users_username'
+2025/02/15 12:12:37 Database setup success
+2025/02/15 12:12:37 MongoDB setup success
+2025/02/15 12:26:29 Database setup success
+2025/02/15 12:26:30 MongoDB setup success
+2025/02/15 12:30:14 get auth session err:record not found
+2025/02/15 12:30:20 get auth session err:record not found
+2025/02/15 12:33:43 get history message error server selection error: server selection timeout, current topology: { Type: ReplicaSetNoPrimary, Servers: [{ Addr: jagongapp-shard-00-00.ddkqp.mongodb.net:27017, Type: Unknown, Last error: remote error: tls: internal error }, { Addr: jagongapp-shard-00-01.ddkqp.mongodb.net:27017, Type: Unknown, Last error: remote error: tls: internal error }, { Addr: jagongapp-shard-00-02.ddkqp.mongodb.net:27017, Type: Unknown, Last error: remote error: tls: internal error }, ] }
+2025/02/15 12:33:49 error insert message server selection error: server selection timeout, current topology: { Type: ReplicaSetNoPrimary, Servers: [{ Addr: jagongapp-shard-00-00.ddkqp.mongodb.net:27017, Type: Unknown, Last error: remote error: tls: internal error }, { Addr: jagongapp-shard-00-01.ddkqp.mongodb.net:27017, Type: Unknown, Last error: remote error: tls: internal error }, { Addr: jagongapp-shard-00-02.ddkqp.mongodb.net:27017, Type: Unknown, Last error: remote error: tls: internal error }, ] }
+2025/02/15 12:33:49 msg payload {  0001-01-01 00:00:00 +0000 UTC}
+2025/02/15 12:33:49 error payload websocket: close 1001 (going away)
+2025/02/15 12:33:49 error sending message websocket: close sent
+2025/02/15 12:33:59 get history message error server selection error: server selection timeout, current topology: { Type: ReplicaSetNoPrimary, Servers: [{ Addr: jagongapp-shard-00-00.ddkqp.mongodb.net:27017, Type: Unknown, Last error: remote error: tls: internal error }, { Addr: jagongapp-shard-00-01.ddkqp.mongodb.net:27017, Type: Unknown, Last error: remote error: tls: internal error }, { Addr: jagongapp-shard-00-02.ddkqp.mongodb.net:27017, Type: Unknown, Last error: remote error: tls: internal error }, ] }
+2025/02/15 12:36:30 msg payload {  0001-01-01 00:00:00 +0000 UTC}
+2025/02/15 12:36:30 error payload websocket: close 1001 (going away)
+2025/02/15 12:39:31 Database setup success
+2025/02/15 12:39:31 MongoDB setup success
+2025/02/15 12:41:56 Database setup success
+2025/02/15 12:41:56 MongoDB setup success
+2025/02/15 12:57:51 Database setup success
+2025/02/15 12:57:52 MongoDB setup success
+2025/02/15 13:00:28 Database setup success
+2025/02/15 13:00:28 MongoDB setup success
+2025/02/15 13:00:28 APM Tracer initialized
+2025/02/15 13:01:46 msg payload {  0001-01-01 00:00:00 +0000 UTC}
+2025/02/15 13:01:46 error payload websocket: close 1001 (going away)
+2025/02/15 13:03:54 msg payload {  0001-01-01 00:00:00 +0000 UTC}
+2025/02/15 13:03:54 error payload websocket: close 1001 (going away)
+2025/02/15 13:03:54 msg payload {  0001-01-01 00:00:00 +0000 UTC}
+2025/02/15 13:03:54 error payload websocket: close 1001 (going away)
+2025/02/15 13:10:59 Database setup success
+2025/02/15 13:11:00 MongoDB setup success
+2025/02/15 13:11:00 APM Tracer initialized
+2025/02/15 13:14:59 Database setup success
+2025/02/15 13:14:59 MongoDB setup success
+2025/02/15 13:14:59 APM Tracer initialized
+2025/02/15 13:18:33 Database setup success
+2025/02/15 13:18:33 MongoDB setup success
+2025/02/15 13:19:30 msg payload {  0001-01-01 00:00:00 +0000 UTC}
+2025/02/15 13:19:30 error payload websocket: close 1001 (going away)
+2025/02/15 13:19:32 msg payload {  0001-01-01 00:00:00 +0000 UTC}
+2025/02/15 13:19:32 error payload websocket: close 1001 (going away)
+2025/02/15 13:24:08 Database setup success
+2025/02/15 13:24:09 MongoDB setup success
+2025/02/15 13:28:04 Database setup success
+2025/02/15 13:28:05 MongoDB setup success
+2025/02/15 13:28:05 APM Tracer initialized
+2025/02/15 13:39:31 Database setup success
+2025/02/15 13:39:32 MongoDB setup success
+2025/02/15 13:40:49 find user error: record not found
+2025/02/15 13:51:03 Database setup success
+2025/02/15 13:51:03 MongoDB setup success
+2025/02/15 13:51:08 Shutting down...
+2025/02/15 13:51:08 <nil>
+2025/02/15 13:51:08 <nil>
+2025/02/16 04:29:56 Database setup success
+2025/02/16 04:29:56 MongoDB setup success
+2025/02/16 04:32:59 find user error: record not found

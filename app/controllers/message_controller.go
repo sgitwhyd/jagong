@@ -6,11 +6,15 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/sgitwhyd/jagong/app/repository"
 	"github.com/sgitwhyd/jagong/pkg/response"
+	"go.elastic.co/apm/v2"
 )
 
-func GetMessages(ctx *fiber.Ctx) error {
+func GetHistory(ctx *fiber.Ctx) error {
 	context := ctx.Context()
-	resp, err := repository.FindAllMessage(context)
+	span , spanCtx := apm.StartSpan(context, "GetHistory", "controller")
+	defer span.End()
+	
+	resp, err := repository.FindAllMessage(spanCtx)
 	if err != nil {
 		log.Printf("get history message error %v", err.Error())
 		err := err.Error()

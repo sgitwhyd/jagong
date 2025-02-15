@@ -22,6 +22,8 @@ func NewApplication() *fiber.App {
 
 	database.SetupDatabase()
 	database.SetupMongoDB()
+
+
 	engine := html.New("./views", ".html")
 	app := fiber.New(fiber.Config{Views: engine})
 	app.Use(recover.New())
@@ -31,6 +33,7 @@ func NewApplication() *fiber.App {
 	go ws.ServeWsMessaging(app)
 
 	router.InstallRouter(app)
+	
 
 	return app
 }
