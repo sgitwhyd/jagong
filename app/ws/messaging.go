@@ -11,6 +11,7 @@ import (
 	"github.com/sgitwhyd/jagong/app/models"
 	"github.com/sgitwhyd/jagong/app/repository"
 	"github.com/sgitwhyd/jagong/pkg/env"
+	"go.elastic.co/apm/v2"
 )
 
 func ServeWsMessaging(app *fiber.App) {
@@ -31,11 +32,16 @@ func ServeWsMessaging(app *fiber.App) {
 				log.Printf("error payload %v", err.Error())
 				break
 			}
+
+			tx := apm.DefaultTracer().StartTransaction("send message", "websocket")
+			ctx := apm.ContextWithTransaction(context.Background(), tx)
+
 			msg.Date = time.Now()
-			err := repository.InsertMessage(context.Background(), msg)
+			err := repository.InsertMessage(ctx, msg)
 			if err != nil {
 				log.Printf("error insert message %v", err.Error())
 			}
+			tx.End()
 			broadcast <- msg
 		}
 	}))

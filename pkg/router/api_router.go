@@ -4,6 +4,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/limiter"
 	"github.com/sgitwhyd/jagong/app/controllers"
+	"go.elastic.co/apm/module/apmfiber/v2"
 )
 
 type ApiRouter struct{}
@@ -16,7 +17,9 @@ func (h ApiRouter) InstallRouter(app *fiber.App) {
 		})
 	})
 
+	
 	userGroup := app.Group("user")
+	userGroup.Use(apmfiber.Middleware())
 	userV1Group := userGroup.Group("/v1")
 	userV1Group.Post("/register", controllers.Register)
 	userV1Group.Post("/login", controllers.Login)
@@ -25,8 +28,9 @@ func (h ApiRouter) InstallRouter(app *fiber.App) {
 
 	//	message
 	messageGroup := app.Group("message")
+	messageGroup.Use(apmfiber.Middleware())
 	messageV1Group := messageGroup.Group("v1")
-	messageV1Group.Get("/history", AuthMiddleware, controllers.GetMessages)
+	messageV1Group.Get("/history", AuthMiddleware, controllers.GetHistory)
 
 }
 

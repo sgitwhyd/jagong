@@ -2,19 +2,25 @@ package controllers
 
 import (
 	"errors"
+	"log"
+	"time"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/sgitwhyd/jagong/app/models"
 	"github.com/sgitwhyd/jagong/app/repository"
 	"github.com/sgitwhyd/jagong/pkg/jwt_token"
 	"github.com/sgitwhyd/jagong/pkg/response"
+	"go.elastic.co/apm/v2"
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
-	"log"
-	"time"
 )
 
 func Register(ctx *fiber.Ctx) error {
 	context := ctx.Context()
+
+	span , spanCtx := apm.StartSpan(context, "Register", "controller")
+	defer span.End()
+
 	user := new(models.User)
 
 	err := ctx.BodyParser(&user)
@@ -39,7 +45,7 @@ func Register(ctx *fiber.Ctx) error {
 	}
 	user.Password = string(hashedPassword)
 
-	err = repository.CreateUser(context, user)
+	err = repository.CreateUser(spanCtx, user)
 	if err != nil {
 		log.Printf("create user error: %v", err.Error())
 		err := err.Error()
@@ -51,6 +57,9 @@ func Register(ctx *fiber.Ctx) error {
 
 func Login(ctx *fiber.Ctx) error {
 	context := ctx.Context()
+	span , spanCtx := apm.StartSpan(context, "Login", "controller")
+	defer span.End()
+
 	loginRequest := new(models.UserLoginRequest)
 
 	err := ctx.BodyParser(&loginRequest)
@@ -67,7 +76,7 @@ func Login(ctx *fiber.Ctx) error {
 		return response.SendErrorResponse(ctx, fiber.StatusBadRequest, &err)
 	}
 
-	user, err := repository.FindUserByUsername(context, loginRequest.Username)
+	user, err := repository.FindUserByUsername(spanCtx, loginRequest.Username)
 	if err != nil {
 		log.Printf("find user error: %v", err)
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -85,14 +94,14 @@ func Login(ctx *fiber.Ctx) error {
 		return response.SendErrorResponse(ctx, fiber.StatusNotFound, &err)
 	}
 
-	generatedToken, err := jwt_token.GenerateToken(user.Username, user.FullName, "token")
+	generatedToken, err := jwt_token.GenerateToken(spanCtx, user.Username, user.FullName, "token")
 	if err != nil {
 		log.Printf("generate token error: %v", err)
 		err := err.Error()
 		return response.SendErrorResponse(ctx, fiber.StatusInternalServerError, &err)
 	}
 
-	generatedRefreshToken, err := jwt_token.GenerateToken(user.Username, user.FullName, "refresh_token")
+	generatedRefreshToken, err := jwt_token.GenerateToken(spanCtx, user.Username, user.FullName, "refresh_token")
 	if err != nil {
 		log.Printf("generate refresh token error: %v", err)
 		err := err.Error()
@@ -107,7 +116,7 @@ func Login(ctx *fiber.Ctx) error {
 		RefreshTokenExpired: time.Now().Add(jwt_token.MapTypeToken["refresh_token"]),
 	}
 
-	err = repository.CreateAuthSession(context, authSessionData)
+	err = repository.CreateAuthSession(spanCtx, authSessionData)
 	if err != nil {
 		log.Printf("create auth session error: %v", err)
 		err := errors.New("login failed").Error()
@@ -126,9 +135,12 @@ func Login(ctx *fiber.Ctx) error {
 
 func Logout(ctx *fiber.Ctx) error {
 	context := ctx.Context()
+	span , spanCtx := apm.StartSpan(context, "Logout", "controller")
+	defer span.End()
+
 	userToken := ctx.Get("Authorization")
 
-	err := repository.DeleteAuthSessionByToken(context, userToken)
+	err := repository.DeleteAuthSessionByToken(spanCtx, userToken)
 	if err != nil {
 		log.Printf("delete auth session error: %v", err)
 		err := err.Error()
@@ -140,6 +152,8 @@ func Logout(ctx *fiber.Ctx) error {
 
 func RefreshToken(ctx *fiber.Ctx) error {
 	context := ctx.Context()
+	span , spanCtx := apm.StartSpan(context, "RefreshToken", "controller")
+	defer span.End()
 	username := ctx.Locals("username").(string)
 
 	user, err := repository.FindUserByUsername(context, username)
@@ -149,14 +163,14 @@ func RefreshToken(ctx *fiber.Ctx) error {
 		return response.SendErrorResponse(ctx, fiber.StatusInternalServerError, &err)
 	}
 
-	generatedToken, err := jwt_token.GenerateToken(username, username, "token")
+	generatedToken, err := jwt_token.GenerateToken(spanCtx, username, username, "token")
 	if err != nil {
 		log.Printf("generate token error: %v", err)
 		err := err.Error()
 		return response.SendErrorResponse(ctx, fiber.StatusInternalServerError, &err)
 	}
 
-	err = repository.UpdateAuthSessionByUserId(context, user.ID, generatedToken, time.Now().Add(jwt_token.MapTypeToken["token"]))
+	err = repository.UpdateAuthSessionByUserId(spanCtx, user.ID, generatedToken, time.Now().Add(jwt_token.MapTypeToken["token"]))
 	if err != nil {
 		log.Printf("update auth session error: %v", err)
 		err := err.Error()
